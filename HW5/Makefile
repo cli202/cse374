@@ -1,44 +1,24 @@
-# Makefile for mem memory system
-# muh, CSE 374, sp21
+# Cindy Li
+# CSE 374
+# HW5
+# 5/12/2023
+# citations: https://www.gnu.org/software/make/manual/html_node/Makefile-Contents.html#:~:text='%20%23%20'%20in%20a%20line%20of,effectively%20blank%2C%20and%20is%20ignored.
+# 
 
-CC = gcc
-CARGS = -Wall -std=c11 -g
+all: t9
 
-all: CARGS += -g
-all: bench
+t9: tnine.o trie.o
+	gcc tnine.o trie.o -o t9
 
-# basic build
-bench: bench.o getmem.o freemem.o mem_utils.o
-	$(CC) $(CARGS) -o bench $^
+tnine.o: tnine.c trie.c
+	gcc -Wall -g -std=c11 -c tnine.c 
 
-# object files
-getmem.o: getmem.c mem.h mem_impl.h
-	$(CC) $(CARGS) -c getmem.c
-
-freemem.o: freemem.c mem.h mem_impl.h
-	$(CC) $(CARGS) -c freemem.c
-
-mem_utils.o: mem_utils.c mem.h mem_impl.h
-	$(CC) $(CARGS) -c mem_utils.c 
-
-## make debug version
-debug: CARGS += -g -D DEBUG
-debug: bench
-
-noassert: CARGS += -g -D NDEBUG
-noassert: bench
-
-
-## Utility targetscd
-test: debug
-	./bench
-	./bench 5
-	./bench 50000 10
-	./bench 2 10 100
-	./bench 18 5 100 16
-	./bench 3 100 100 500 2000 1
-	./bench 4 50 50 500 2000 1
-	./bench 1 50 50 500 2000 1
+trie.o: trie.c trienode.h
+	gcc -Wall -g -std=c11 -c trie.c 
 
 clean:
-	rm -rf bench freemem.o getmem.o mem_utils.o *~ 
+	rm -f *.o trie
+
+# citations: https://www.gnu.org/software/make/manual/html_node/Makefile-Contents.html#:~:text='%20%23%20'%20in%20a%20line%20of,effectively%20blank%2C%20and%20is%20ignored.
+# https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop
+# https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
