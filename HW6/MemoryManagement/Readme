@@ -1,0 +1,30 @@
+## CSE 374 - HW6B
+#### Cindy Li 
+##### 5/31/2023
+
+### Freelist Implementation 
+I implemented the freelist with nodes in order of ascending addresses as suggested. Each node holds information about the size of the block and points to the next block of available memory. Each time a block needs to be inserted or removed, the program does a linear search to find the corresponding place or block. 
+
+### Features and Improvements
+getmem():
+    1. When freelist runs out of valid memory blocks, the size requested using malloc is the larger of BIGCHUNK (1600) or the size requested by the user. This way, malloc won't be called as frequently 
+    2. When inserting a new block into freelist because there aren't any valid memory blocks, the address of the block is returned. This way, the program doesn't need to call find_space() to get the address of the new block after it is isnerted. 
+    3. If the block found is only bigger than the requested size by MINCHUNK (16), there is no need to futher divide the block because NODESIZE is also 16. 
+
+freemem():
+    1. freemem() combines adjacent blocks in freelist. After each new blocks in put in freelist, combine_block() goes through the entire freelist to look for any blocks that are adjacent. 
+
+### Analysis
+The default 1000 trials finishes nearly instantaneously around 100 miliseconds (0.1s). Multiple 1000000 trials also runs in around 3.5s. However, it is important to note that these trials were run with PCTLARGE set to the default 10%. If PCTLARGE is large, runtime will increase as it needs to malloc() more memory. 
+
+When reviewing the output from print_heap(), it should also be noted that the heap is left with some small memory blocks that are unlikely to be called by the client (unless the client likes to store information in small chunks lol). This decreases the effiency the program as eveyr iteration through freelist will also iterate through these small blocks that are basically useless. 
+
+### Resources 
+    - CSE374 materials repository, lectures, slides, and Ed posts 
+    - tutorialspoint (https://www.tutorialspoint.com/cprogramming/c_memory_management.htm)
+    - stackoverflow
+        - https://stackoverflow.com/questions/24891/c-memory-management
+        - https://stackoverflow.com/questions/73601110/removing-elements-memory-management-in-linked-lists-in-c
+        - https://stackoverflow.com/questions/69153735/how-to-store-the-data-dynamically-in-linked-list-in-c
+        - https://stackoverflow.com/questions/68331821/dynamic-memory-allocation-in-linked-list-insert-function
+    - GeeksforGeeks (https://www.geeksforgeeks.org/first-fit-algorithm-in-memory-management-using-linked-list/)

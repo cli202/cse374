@@ -1,0 +1,22 @@
+Cindy Li
+CSE 374
+HW6A
+5/17/2023
+
+my respository url: git@gitlab.cs.washington.edu:cse374-23sp-students/cse374-23sp-cindyl24.git
+
+This program is a benchmarking system for testing memory management. Each run executes a large number of getmem and freemem functions to allocate and free blocks of random size in random order, unless otherwise specified. 
+
+While the code performed adequately in terms of speed and memory, CPU time was not consistent across all trials. For example, the larger pctlarge is (more blocks set to larger size), the longer the runtime took. 
+
+Resources used: 
+1. stackoverflow 
+    https://stackoverflow.com/questions/2844/how-do-you-format-an-unsigned-long-long-int-using-printf
+    https://stackoverflow.com/questions/5248915/execution-time-of-c-program
+2. oracle unintptr_t documentation
+3. tutorialspoint 
+    https://www.tutorialspoint.com/c_standard_library/c_function_atoi.htm
+4. geeksforgeeks 
+    https://www.geeksforgeeks.org/how-to-measure-time-taken-by-a-program-in-c/
+    https://www.geeksforgeeks.org/unsigned-char-in-c-with-examples/
+5. ChatGPT 
